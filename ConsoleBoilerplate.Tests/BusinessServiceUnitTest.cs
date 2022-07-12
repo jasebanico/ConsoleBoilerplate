@@ -1,6 +1,6 @@
 ﻿namespace ConsoleBoilerplate.Tests
 {
-    public class BusinessServiceTest
+    public class BusinessServiceUnitTest
     {
 
     }
