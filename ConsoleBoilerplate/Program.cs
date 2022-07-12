@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using ConsoleBoilerplate.Data;
 using ConsoleBoilerplate.Services;
 using ConsoleBoilerplate.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,14 +12,19 @@ IConfiguration config = new ConfigurationBuilder()
     .Build();
 
 var serviceCollection = new ServiceCollection();
+
 serviceCollection.AddHttpClient<IGatewayService, GatewayService>("MockApi", client =>
 {
     client.BaseAddress = new Uri(config["MockApiBaseUrl"]);
     //client.DefaultRequestHeaders.Add("X-Api-Key", "some-key-value");
 });
 
+serviceCollection.AddDbContext<AppDbContext>(
+    options => options.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+);
+
 var serviceProvider = serviceCollection.AddLogging()
-    .AddSingleton<IConfiguration>(config)
+    .AddSingleton(config)
     .AddSingleton<IGatewayService, GatewayService>()
     .AddSingleton<IDataService, DataService>()
     .AddSingleton<IBusinessService, BusinessService>()
