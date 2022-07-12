@@ -1,6 +1,8 @@
-﻿using ConsoleBoilerplate.Services.Interfaces;
+﻿using ConsoleBoilerplate.Models;
+using ConsoleBoilerplate.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
+using System.Text.Json;
 
 namespace ConsoleBoilerplate.Services
 {
@@ -15,16 +17,30 @@ namespace ConsoleBoilerplate.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task GetSingleAsync()
+        public async Task<ParentItem> GetSingleAsync()
         {
             var httpClient = _httpClientFactory.CreateClient("MockApi");
             var response = await httpClient.GetAsync(_configuration["MockApiSingleUrl"]);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ParentItem>(responseContent);
+            }
+
+            return null;
         }
 
-        public async Task GetArrayAsync()
+        public async Task<ParentItem[]> GetArrayAsync()
         {
             var httpClient = _httpClientFactory.CreateClient("MockApi");
             var response = await httpClient.GetAsync(_configuration["MockApiArrayUrl"]);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ParentItem[]>(responseContent);
+            }
+
+            return null;
         }
     }
 }

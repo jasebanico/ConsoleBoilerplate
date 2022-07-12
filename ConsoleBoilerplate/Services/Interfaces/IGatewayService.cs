@@ -1,8 +1,10 @@
-﻿namespace ConsoleBoilerplate.Services.Interfaces
+﻿using ConsoleBoilerplate.Models;
+
+namespace ConsoleBoilerplate.Services.Interfaces
 {
     public interface IGatewayService
     {
-        Task GetSingleAsync();
-        Task GetArrayAsync();
+        Task<ParentItem> GetSingleAsync();
+        Task<ParentItem[]> GetArrayAsync();
     }
 }

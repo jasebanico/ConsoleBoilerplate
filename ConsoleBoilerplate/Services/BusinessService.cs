@@ -13,7 +13,8 @@ namespace ConsoleBoilerplate.Services
 
         public async Task ProcessAsync()
         {
-            await _gatewayService.GetSingleAsync();
+            var parentItem = await _gatewayService.GetSingleAsync();
+            var parentItems = await _gatewayService.GetArrayAsync();
         }
     }
 }
