@@ -1,7 +1,11 @@
-﻿namespace ConsoleBoilerplate.Services.Interfaces
+﻿using ConsoleBoilerplate.Models;
+
+namespace ConsoleBoilerplate.Services.Interfaces
 {
     internal interface IBusinessService
     {
-        Task ProcessAsync();
+        Task ProcessAllAsync();
+        Task ProcessAsync(ParentItem parentItem);
+        Task ProcessAsync(ParentItem[] parentItem);
     }
 }

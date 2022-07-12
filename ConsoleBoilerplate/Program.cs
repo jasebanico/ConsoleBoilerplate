@@ -29,10 +29,14 @@ serviceProvider
 
 var logger = serviceProvider.GetService<ILoggerFactory>()
             .CreateLogger<Program>();
+
+Console.WriteLine("ConsoleBoilerplate v1.0");
+
 logger.LogDebug("Starting application.");
 
 var businessService = serviceProvider.GetService<IBusinessService>();
-await businessService.ProcessAsync();
+await businessService.ProcessAllAsync();
 
-Console.WriteLine("Finished processing.");
+logger.LogDebug("Finished processing.");
 
+Console.WriteLine();
