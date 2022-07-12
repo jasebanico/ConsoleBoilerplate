@@ -2,5 +2,7 @@
 {
     public interface IGatewayService
     {
+        Task GetSingleAsync();
+        Task GetArrayAsync();
     }
 }
