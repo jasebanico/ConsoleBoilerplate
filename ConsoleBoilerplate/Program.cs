@@ -19,9 +19,16 @@ serviceCollection.AddHttpClient<IGatewayService, GatewayService>("MockApi", clie
     //client.DefaultRequestHeaders.Add("X-Api-Key", "some-key-value");
 });
 
+var connString = config.GetConnectionString("DefaultConnection");
+if (string.IsNullOrEmpty(connString))
+{
+    var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = "ConsoleBoilerplate.db" };
+    connString = connectionStringBuilder.ToString();
+}
+
 serviceCollection.AddDbContext<AppDbContext>(
-    options => options.UseSqlite(config.GetConnectionString("DefaultConnection"))
-);
+    options => options.UseSqlite(connString),
+    ServiceLifetime.Scoped);
 
 var serviceProvider = serviceCollection.AddLogging()
     .AddSingleton(config)

@@ -1,11 +1,11 @@
 ﻿using ConsoleBoilerplate.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.Text.RegularExpressions;
 
 namespace ConsoleBoilerplate.Data
 {
-    internal class AppDbContext : DbContext, IDesignTimeDbContextFactory<AppDbContext>
+    public class AppDbContext : DbContext
     {
         private bool _isMigration;
         private IConfiguration _configuration;
@@ -32,15 +32,6 @@ namespace ConsoleBoilerplate.Data
             {
                 optionsBuilder.UseSqlite(conn ?? "ConsoleBoilerplate.db");
             }
-        }
-
-        public AppDbContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            // pass your design time connection string here
-            string conn = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlite(conn ?? "ConsoleBoilerplate.db");
-            return new AppDbContext(optionsBuilder.Options);
         }
     }
 }
