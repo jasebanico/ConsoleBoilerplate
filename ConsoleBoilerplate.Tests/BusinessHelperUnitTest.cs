@@ -12,12 +12,11 @@ namespace ConsoleBoilerplate.Tests
         public void FirstUnitTest()
         {
             // Arrange
-            var businessHelper = new BusinessHelper();
             var parentItem = new ParentItem();
             parentItem.IsProcessed.Should().BeFalse();
 
             // Act
-            businessHelper.Process(parentItem);
+            BusinessHelper.Process(parentItem);
 
             // Assert
             parentItem.IsProcessed.Should().BeTrue();

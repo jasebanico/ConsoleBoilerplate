@@ -20,7 +20,7 @@ serviceCollection.AddHttpClient<IGatewayService, GatewayService>("MockApi", clie
 });
 
 serviceCollection.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+    options => options.UseSqlite(config.GetConnectionString("DefaultConnection"))
 );
 
 var serviceProvider = serviceCollection.AddLogging()

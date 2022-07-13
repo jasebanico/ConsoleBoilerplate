@@ -3,9 +3,9 @@ using ConsoleBoilerplate.Services.Interfaces;
 
 namespace ConsoleBoilerplate.Services
 {
-    public class BusinessHelper : IBusinessHelper
+    public class BusinessHelper
     {
-        public void Process(ParentItem parentItem)
+        public static void Process(ParentItem parentItem)
         {
             parentItem.IsProcessed = true;
             if (parentItem.ChildItems != null)
@@ -17,11 +17,11 @@ namespace ConsoleBoilerplate.Services
             }
         }
 
-        public void Process(ParentItem[] parentItems)
+        public static void Process(ParentItem[] parentItems)
         {
             foreach (var parentItem in parentItems)
             {
-                this.Process(parentItem);
+                Process(parentItem);
             }
         }
     }
